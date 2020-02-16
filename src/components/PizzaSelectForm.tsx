@@ -18,28 +18,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PizzaSelectForm() {
 	const classes = useStyles();
-	const [value, setValue] = React.useState('female');
+	const [value, setValue] = React.useState('1');
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue((event.target as HTMLInputElement).value);
 	};
 
 	return (
-		<div>
-			<FormControl component="fieldset" className={classes.formControl} style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+		<div style={{ width: '100%', maxWidth: '1100px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap', margin: '0 auto' }}>
+			<FormControl component="fieldset" className={classes.formControl}>
 				<FormLabel component="legend">Velg èn Pizza</FormLabel>
-				<RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange} style={{ display: 'flex', flexDirection: 'row' }}>
-					<FormControlLabel value="Grandiosa" control={<Radio />} label="Grandiosa" />
-					<FormControlLabel value="Grandiosa Pepperoni" control={<Radio />} label="Grandiosa Pepperoni" />
-					<FormControlLabel value="Big One" control={<Radio />} label="Big One" />
-					<FormControlLabel value="Big One Tripple Cheese" control={<Radio />} label="Big One Tripple Cheese" />
-					<FormControlLabel
-						value="disabled"
-						disabled
-						control={<Radio />}
-						label="(Disabled option)"
-					/>
+				<RadioGroup aria-label="pizza" name="pizza" value={value} onChange={handleChange}
+							style={{ display: 'flex', flexDirection: 'row' }}>
+					<FormControlLabel value="1" control={<Radio />} label="Grandiosa" />
+					<FormControlLabel value="2" control={<Radio />} label="Grandiosa Pepperoni" />
+					<FormControlLabel value="3" control={<Radio />} label="Big One" />
+					<FormControlLabel value="4" control={<Radio />} label="Big One Triple Cheese" />
+
 				</RadioGroup>
+			</FormControl>
+			<FormControl>
 				<div style={{ display: 'flex', flexDirection: 'row' }}>
 					<TextField id="standard-basic" label="Ditt Navn" style={{ width: '300px', margin: '15px' }} />
 					<Button variant="contained" color="primary" style={{ height: '3rem', marginTop: '15px' }}>

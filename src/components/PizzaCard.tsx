@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Chip } from '@material-ui/core'
+import PizzaAdminGroup from './tools/PizzaAdminGroup'
 
 const useStyles = makeStyles({
 	root: {
@@ -18,9 +19,11 @@ const useStyles = makeStyles({
 
 export interface PizzaCardProps{
 	order: {id: number, name: string, pizzaType: string, pizzaId: number, status: number}
+	isAdmin: boolean
 }
 
-const PizzaCard = ({ order }: PizzaCardProps) => {
+
+const PizzaCard = ({ order, isAdmin }: PizzaCardProps) => {
 	const classes = useStyles();
 
 	const PizzaImg = ( pizzaId: number ) => {
@@ -34,6 +37,13 @@ const PizzaCard = ({ order }: PizzaCardProps) => {
 			case 4:
 				return '/images/bigone-triplecheese.png'
 		}
+	}
+
+	const AdminTools = (admin: boolean) => {
+		if (admin) {
+			return <PizzaAdminGroup status={order.status} />
+		} else
+			return null
 	}
 
 	return (
@@ -50,6 +60,7 @@ const PizzaCard = ({ order }: PizzaCardProps) => {
 					</Typography>
 					<Chip label={order.pizzaType} />
 				</CardContent>
+				{AdminTools(isAdmin)}
 			</CardActionArea>
 		</Card>
 	);

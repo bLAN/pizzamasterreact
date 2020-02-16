@@ -31,7 +31,14 @@ const orders = [
 		pizzaType: 'Big One Triple Cheese',
 		pizzaId: 4,
 		status: 3
-	}
+	},
+	{
+		id: 5,
+		name: 'Kristine',
+		pizzaType: 'Big One',
+		pizzaId: 3,
+		status: 2
+	},
 ]
 
 const Col = styled.div`
@@ -41,45 +48,47 @@ const Col = styled.div`
 	text-align: center;
 `
 
+export interface PizzaStatusDisplayProps {
+	isAdmin: boolean
+}
 
-const inQueue = orders.map(order => {
+const inQueue = (isAdmin: boolean) =>  orders.map(order => {
 		if (order.status === 1) {
-			return <PizzaCard order={order} />
+			return <PizzaCard order={order} isAdmin={isAdmin} key={order.id} />
 		}
 		return null
 	}
 )
-const inOven = orders.map(order => {
+const inOven = (isAdmin: boolean) =>  orders.map(order => {
 		if (order.status === 2) {
-			return <PizzaCard order={order} />
+			return <PizzaCard order={order} isAdmin={isAdmin} key={order.id} />
 		}
 		return null
 	}
 )
-const isFinished = orders.map(order => {
+const isFinished = (isAdmin: boolean) => orders.map(order => {
 		if (order.status === 3) {
-			return <PizzaCard order={order} />
+			return <PizzaCard order={order} isAdmin={isAdmin} key={order.id} />
 		}
 		return null
 	}
 )
 
-const PizzaStatusDisplay = () => {
+const PizzaStatusDisplay = ({ isAdmin }: PizzaStatusDisplayProps) => {
 	return (
 		<div>
-			<h2>Pizza Status</h2>
 			<Grid>
 				<Col>
 					<h3>I Kø</h3>
-					{inQueue}
+					{inQueue(isAdmin)}
 				</Col>
 				<Col>
 					<h3>I Ovn</h3>
-					{inOven}
+					{inOven(isAdmin)}
 				</Col>
 				<Col>
 					<h3>Klar for Henting</h3>
-					{isFinished}
+					{isFinished(isAdmin)}
 				</Col>
 			</Grid>
 		</div>
